@@ -1,0 +1,11 @@
+{
+  "activeViewId" : "d9760f5a-27c8-4298-897a-9cacf67f012a",
+  "appPageId" : "94b91be3-9205-4074-8b8d-0c5abfd1c816",
+  "configurationTags" : [ ],
+  "id" : "19904c88-42bb-4bef-a253-c10ccb6a824d",
+  "label" : "MyMenteesPage",
+  "pageAccess" : "UseParent",
+  "routeType" : "custom-mymenteespage",
+  "type" : "route",
+  "urlPrefix" : "mymenteespage"
+}

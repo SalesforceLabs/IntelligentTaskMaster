@@ -1,0 +1,25 @@
+.c-container {
+    border: 1px solid gray;
+    margin: 10px 0 20px 0;
+    padding: 1rem;
+}
+.nameStyle {
+    color: #0176d3;
+    font-weight: bold;
+}
+.timeStyle {
+    color: gray;
+}
+
+.notificBadge{
+    color:white;
+    background-color: red;
+}
+
+.lgc-bg {
+    background-color:white;
+}
+
+.a:hover {
+    background-color: yellow;
+  }

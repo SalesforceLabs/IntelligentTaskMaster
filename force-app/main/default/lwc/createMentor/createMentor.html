@@ -1,0 +1,105 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-card title="Mentees' Requests">
+          <template if:true={openModal}>  
+              <div class="slds-modal slds-fade-in-open slds-backdrop">
+                <div class="slds-modal__container"> 
+                  <!--HEADER Section-->  
+                  <div class="slds-modal__header">  
+                    <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large"  
+                      variant="bare-inverse" onclick={closeModal} class="slds-modal__close">  
+                    </lightning-button-icon>  
+                    <h1 style="font-size: 2em">Mentor Registration</h1>
+                  </div> 
+                  <!--Body Section-->  
+                  <div class="slds-modal__content slds-p-around_medium">  
+                      <p> Select upto three skills</p>
+                      <c-multi-select-pick-list context="mentor" onaddskills={addSkills}></c-multi-select-pick-list>
+                      <lightning-formatted-text value="Location"></lightning-formatted-text></br>
+                      <lightning-formatted-text value={location}></lightning-formatted-text></br></br>
+                      <lightning-combobox name="mentoring preference" label="Mentoring Preference" value={value} options={options} onchange={handleTypeChange}></lightning-combobox></br></br>
+                      <lightning-input label="Currently Accepting Mentee Requests" class="slds-modal__content slds-p-around_medium" type="checkbox" checked="checked" onchange={handleChange}></lightning-input>
+                 </div>
+                  <!--Footer Section-->  
+                  <div class="slds-modal__footer">  
+                    <lightning-button label="Cancel" variant="brand" onclick={closeModal} class="slds-m-left_x-small">  
+                    </lightning-button>  
+                    <lightning-button label="Register" variant="Neutral" onclick={handleClick} class="slds-m-left_x-small">  
+                  </lightning-button>  
+                  </div>  
+                </div>  
+              </div>  
+            </template>
+              <template if:false={noReqFlag}>
+              <!--<lightning-button variant="brand-outline" label="View All" title="View All" slot="actions" class="slds-m-left_x-small"></lightning-button>-->
+              <div class="c-container">
+                  <template for:each={allItemsForCurrentView} for:item="request">
+                  <lightning-layout class="slds-box" style="cursor: pointer;background-color:white" horizontal-align="space" onclick={takeAction} multiple-rows="true" data-skill={request.skillName} data-mentee={request.personName} data-status={request.status} key={request.personName} data-id={request.mID}  >
+                      <lightning-layout-item size="10">
+                          <div><span class="slds-text-title_bold" style="color:#0176d3">{request.personName}</span></div>
+                          <p class="timeStyle">
+                              {request.status} : {request.lastmodifiedDate}
+                          </p>
+                          <p class="timeStyle">Skill: {request.skillName}</p>
+                      </lightning-layout-item>
+                      <lightning-layout-item size="2">
+                          <template if:true ={request.newMentorshipFlag}>
+                              <lightning-badge class="notificBadge" label="Respond" ></lightning-badge>
+                          </template>
+                      </lightning-layout-item>
+                  </lightning-layout>
+                  </template>
+                  <div class="slds-align_absolute-center slds-p-around_medium lgc-bg">
+                    <lightning-tile label="My Mentor Profile" href="#" onclick={viewMentorProfile}>
+                    </lightning-tile>
+                  </div>
+                </div>
+          </template>
+          <template if:true={noReqFlag}>
+            <div class="slds-box">
+            <div class="slds-align_absolute-center">
+              <img src={noDataUrl}/>
+            </div>
+            <template if:true ={createMentor}>
+              <div class="slds-align_absolute-center slds-p-around_medium lgc-bg1">
+                <lightning-button variant="brand" class="slds-align_absolute-center" label="Register as Mentor" title="Register as Mentor" onclick={createMentorProfile}></lightning-button> 
+              </div>
+            </template>
+            <template if:true ={viewMentor}>
+              <p class="slds-align_absolute-center" style="height:5rem">Get set for being a guide for your Ohana</p>
+              <div class="slds-align_absolute-center slds-p-around_medium lgc-bg">
+                <lightning-tile label="My Mentor Profile" href="#" onclick={viewMentorProfile}>
+                </lightning-tile>
+              </div>
+            </template>
+            </div>
+          </template>
+      <template if:true={openMenteeRequest}>
+      <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open">
+          <div class="slds-modal__container">
+              <lightning-button-icon class="slds-modal__close" style="background-color:white" icon-name="utility:close" onclick={closeRequestMenteeUI}></lightning-button-icon>      
+          <div class="slds-modal__header">
+              <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Mentoring Request</h1>
+              </div>
+              <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+              <p class="slds-text-align_left">Name</p>
+              <p>{menteeName}</p>
+              <br></br>
+              <p class="slds-text-align_left">Requested Skill</p>
+              <p>{skillName}</p>
+              <br></br>
+              <p class="slds-text-align_left">Mentor's response</p>
+              <p>
+                  <lightning-textarea name="input7" onchange={handleMessageChange} value={reguestMessage}  placeholder="compose your message" label="" maxlength="140" message-when-too-long="A maximum of 140 characters are allowed" message-when-value-missing="An empty message cannot be posted." ></lightning-textarea>
+              </p>
+              </div>
+              <div class="slds-modal__footer">
+                  <lightning-button variant="brand-outline" label="Decline" data-message={handleMessageChange} title="Decline" onclick={handleActions} class="slds-m-left_x-small"></lightning-button>
+                  <lightning-button variant="brand" label="Accept Request" title="Accept Request" onclick={handleActions} class="slds-m-left_x-small"></lightning-button>
+              </div>
+          </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open" role="presentation"></div>
+      </template>
+  </lightning-card>
+</template>

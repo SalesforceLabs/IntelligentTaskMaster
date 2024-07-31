@@ -1,0 +1,61 @@
+<!-- sldsValidatorIgnore -->
+<template>
+    <div class="slds-form-element">
+        <div class="slds-form-element__control">
+            <div class="slds-combobox_container">
+                <div class="slds-combobox slds-dropdown-trigger slds-dropdown-trigger_click slds-is-open"
+                    aria-expanded="true" aria-haspopup="listbox" role="combobox">
+                    <div class="slds-combobox__form-element slds-input-has-icon slds-input-has-icon_right" role="none">
+                        <!-- hide this by default-->
+                        <div class="selectedOption slds-hide">
+                            <input type="text" class="slds-input slds-combobox__input slds-combobox__input-value"
+                                id="combobox-id-5" aria-controls="listbox-id-5" autocomplete="off" role="textbox"
+                                placeholder="Select an Option" readonly="" value={selectedAccount} />
+                            <button class="slds-button slds-button_icon slds-input__icon slds-input__icon_right"
+                                title="Remove selected option">
+                                <lightning-icon class="slds-p-bottom_x-large" icon-name="utility:close" alternative-text="close" size="x-small"
+                                    onclick={handleRemoveSelectedOption}></lightning-icon>
+                                <span class="slds-assistive-text">Remove selected option</span>
+                            </button>
+                        </div>
+                        <!-- end hide this by default-->
+                        <div class="defaultClass">
+                            <input type="text" class="slds-input slds-combobox__input slds-has-focus searchvalue"
+                                id="combobox-id-3" aria-activedescendant="option1" aria-autocomplete="list"
+                                list="listbox-id-3" aria-controls="listbox-id-3" autocomplete="off" role="textbox"
+                                placeholder="Select Mentor By Name" onclick={handleClick}
+                                onkeyup={handleKeyUp}/>
+                        </div>
+                    </div>
+                    <div id="listbox-id-3"
+                        class="slds-dropdown slds-dropdown_length-with-icon-7 slds-dropdown_fluid accounts_list slds-hide"
+                        role="listbox" onmouseleave={handleMouseLeave}>
+                        <ul class="slds-listbox slds-listbox_vertical" role="presentation"  >
+                            <template if:true={options}>
+                                <template for:each={options} for:item="mentor" >
+                                    <div class="slds-p-around_medium" key={mentor.mentorId}>
+                                        <lightning-tile onclick={handleOptionSelect} type="media" data-id={mentor.mentorId} data-name={mentor.mentorName} class="slds-listbox__item" data-key={mentor.mentorSkillId}>
+                                           <lightning-avatar slot="media" src="../assets/images/avatar1.jpg" fallback-icon-name="standard:person_account" alternative-text={mentor.Name}></lightning-avatar>
+                                           <ul class="slds-list_horizontal slds-has-dividers_right">
+                                              <li class="slds-item" > 
+                                                <p>{mentor.mentorName}<br>
+                                                {mentor.skillName}</p>  
+                                              </li>
+                                           </ul>
+                                        </lightning-tile>
+                                    </div>
+                                </template>
+                            </template>
+                            <template if:false={options}>
+                                <div>Error</div>
+                            </template>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <template if:true={openModal}> 
+        <c-request-dialog mentor={mentor} oncancelreq={handleCancel}></c-request-dialog>
+    </template>
+</template>
