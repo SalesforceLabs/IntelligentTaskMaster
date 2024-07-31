@@ -1,0 +1,24 @@
+<template>
+    <div class="slds-grid slds-wrap">
+        <template for:each={_homeScreenJson} for:item="card">
+            <div class="slds-col slds-p-right_x-small slds-p-top_x-small slds-size_1-of-2" key={card.id} data-id={card.id}>
+                <span>
+                    <c-card-component icon-name={card.iconName} total-tasks={card.totalTasks} execution-status={card.executionStatus} onclick={navigateToRecordList}>
+                    </c-card-component>
+                </span>
+            </div>
+        </template>
+    </div>
+    <!-- <div class="slds-m-around_medium"> -->
+        <lightning-modal-footer class="--slds-c-modal-footer-color-background: LightGray;">
+        <lightning-button
+            label="New List"
+            title="New List"
+            onclick={handleButtonClick}
+            icon-name="utility:add"
+            variant="Brand Outline"
+            style="display: grid; width: 100%;">
+        </lightning-button>
+    </lightning-modal-footer>
+    <!-- </div> -->
+</template>

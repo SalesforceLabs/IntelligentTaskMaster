@@ -1,0 +1,9 @@
+<template>
+    <div class="slds-grid slds-wrap slds-grid_vertical">
+        <template for:each={taskListJson} for:item="taskDetail">
+            <div class="slds-col slds-m-bottom_x-small" key={taskDetail.id} data-id={taskDetail.id}>
+                <c-task-list task-header={taskDetail.taskHeader} task-sub-header={taskDetail.taskSubHeader}></c-task-list>
+            </div>
+        </template>
+    </div>
+</template>

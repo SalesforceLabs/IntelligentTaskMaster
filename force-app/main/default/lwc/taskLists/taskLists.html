@@ -1,0 +1,15 @@
+<template>
+    <div class="slds-box slds-theme_default">
+      <div class="slds-grid slds-wrap slds-">
+        <div class="slds-col slds-size_1-of-12">
+          <lightning-icon icon-name={taskListData.iconName} alternative-text={taskListData.executionStatus} title={taskListData.executionStatus}></lightning-icon>
+        </div>
+        <div class="slds-col slds-size_11-of-12 slds-m-top_xx-small slds-p-left_x-small">
+          <lightning-formatted-rich-text value={taskListData.executionStatus}></lightning-formatted-rich-text>
+        </div>
+        <div class="slds-col">
+          <c-today-sub-task-list task-list-json={taskListData.taskList}></c-today-sub-task-list>
+        </div>
+      </div>
+    </div>
+</template>
