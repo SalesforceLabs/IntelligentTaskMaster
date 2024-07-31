@@ -1,0 +1,18 @@
+<template>
+    <div class="slds-box" style="background-color: white;color: white;">
+        <lightning-input label="Name" name="tasksub" type="text" required onchange={handleChange}></lightning-input>
+        <lightning-input label="Priority" name="taskpri" type="text" required onchange={handleChange}></lightning-input>
+        <lightning-input label="Category" name="taskpri" type="text" required onchange={handleChange}></lightning-input>
+        <lightning-input label="Comments" name="taskpri" type="text" required onchange={handleChange}></lightning-input>
+        <lightning-combobox
+            name="progress"
+            label="Status"
+            value={value}
+            placeholder="Select Progress"
+            options={options}
+            onchange={handleChange} ></lightning-combobox>
+    <p>Selected value is: {value}</p>
+        <div></div>
+        <lightning-button label="Create Task" onclick={createTask} variant="brand"></lightning-button>
+    </div>  
+  </template>

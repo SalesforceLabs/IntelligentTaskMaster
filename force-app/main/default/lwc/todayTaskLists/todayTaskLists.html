@@ -1,0 +1,136 @@
+<template>
+    <div class="slds-box slds-theme_default">
+      <!-- <div class="slds-box slds-p-around_small" style="background-color: rgb(233, 232, 230);">
+        <lightning-input label="Search Task" placeholder="Task Name" value={searchTask} onchange={taskNameChange}>
+        </lightning-input>
+      </div>
+      <div class="slds-grid slds-wrap slds-p-around_small">
+        <div class="slds-col slds-size_1-of-12">
+          <lightning-icon icon-name={iconName} alternative-text="Today" title="Today"></lightning-icon>
+        </div>
+        <div class="slds-col slds-size_11-of-12 slds-m-top_xx-small slds-p-left_x-small">
+          <lightning-formatted-rich-text value={todayText}></lightning-formatted-rich-text>
+        </div>
+      </div>  -->
+
+      <!-- For todays task -->
+      <template if:true={isTodayTask}>
+        <div class="slds-box slds-p-around_small" style="background-color: rgb(233, 232, 230);">
+          <lightning-input label="Search Task" placeholder="Task Name" value={searchTask} onchange={taskNameChange}>
+          </lightning-input>
+        </div>
+        <div class="slds-grid slds-wrap slds-p-around_small">
+          <div class="slds-col slds-size_1-of-12">
+            <lightning-icon icon-name={iconName} alternative-text="Today" title="Today"></lightning-icon>
+          </div>
+          <div class="slds-col slds-size_11-of-12 slds-m-top_xx-small slds-p-left_x-small">
+            <lightning-formatted-rich-text value={todayText}></lightning-formatted-rich-text>
+          </div>
+        </div>
+        <template if:true={todaysTasks}>
+          <div class="slds-grid slds-wrap sds-gutters">
+              <template for:each={todaysTasks} for:item="eachTask">
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-box slds-box_xx-small" key={eachTask.Id}>
+                  <lightning-card title={eachTask.Subject} style="color: rgb(17, 17, 70);" key={eachTask.Id}>
+                    <div slot="actions">
+                      <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                          <template if:true={eachTask.IsHighPriority}>
+                            <lightning-icon icon-name="action:goal" alternative-text="today" title="today"></lightning-icon>
+                          </template>
+                        </div>
+                        <div class="slds-col">
+                          <template if:true={eachTask.IsClosed}>
+                            <span style="color: green;font-weight: bold;">DONE</span>
+                          </template>
+                          <template if:false={eachTask.IsClosed}>
+                            <lightning-button-menu alternative-text="Show menu" variant="border-filled" icon-name="utility:automate" class="slds-m-left_large" menu-alignment="right" key={eachTask.Id} name={eachTask.Id}>
+                              <lightning-menu-item name={eachTask.Id} value={eachTask.Id} label="Completed" onclick={updateTaskFunction}></lightning-menu-item>
+                              <lightning-menu-item name={eachTask.Id} value={eachTask.Id} label="In Progress" onclick={updateTaskFunction}></lightning-menu-item>
+                              <lightning-menu-item name={eachTask.Id} value={eachTask.Id} label="Waiting on someone else" onclick={updateTaskFunction}></lightning-menu-item>
+                              <lightning-menu-item name={eachTask.Id} value={eachTask.Id} label="Deferred" onclick={updateTaskFunction}></lightning-menu-item>
+                          </lightning-button-menu>
+                            <!-- <lightning-button class="slds-m-left_x-small" variant="success" name={eachTask.id} value={eachTask.id} label="Complete"></lightning-button> -->
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="slds-p-horizontal_small">
+                      <span style="color: rgb(32, 29, 194);">Status:</span>{eachTask.Status} 
+                    </p>
+                    <p class="slds-p-horizontal_small">
+                      <span style="color: rgb(32, 29, 194);">Priority:</span>{eachTask.Priority} 
+                    </p>
+                    <template if:true={eachTask.Description}>
+                      <p class="slds-p-horizontal_small">
+                        <span style="color: rgb(32, 29, 194);">Description:</span>{eachTask.Description} 
+                      </p>
+                    </template>
+                  </lightning-card>
+                </div>
+              </template>
+          </div>
+        </template>
+      </template>
+
+      <!-- For flagged Tasks -->
+      <template if:true={isFlaggedTask}>
+        <div class="slds-box slds-p-around_small" style="background-color: rgb(233, 232, 230);">
+          <lightning-input label="Search Task" placeholder="Task Name" value={searchTask} onchange={flaggedTaskNameChange}>
+          </lightning-input>
+        </div>
+        <div class="slds-grid slds-wrap slds-p-around_small">
+          <div class="slds-col slds-size_1-of-12">
+            <lightning-icon icon-name={iconName} alternative-text="Today" title="Today"></lightning-icon>
+          </div>
+          <div class="slds-col slds-size_11-of-12 slds-m-top_xx-small slds-p-left_x-small">
+            <lightning-formatted-rich-text value={todayText}></lightning-formatted-rich-text>
+          </div>
+        </div>
+        <template if:true={flaggedTodaysTasks}>
+          <div class="slds-grid slds-wrap sds-gutters">
+              <template for:each={flaggedTodaysTasks} for:item="eachTask">
+                <div class="slds-col slds-size_1-of-1 slds-p-around_small slds-box slds-box_xx-small" key={eachTask.Id}>
+                  <lightning-card title={eachTask.Subject} style="color: rgb(17, 17, 70);" key={eachTask.Id}>
+                    <div slot="actions">
+                      <div class="slds-grid slds-gutters">
+                        <div class="slds-col">
+                          <template if:true={eachTask.IsHighPriority}>
+                            <lightning-icon icon-name="action:goal" alternative-text="today" title="today"></lightning-icon>
+                          </template>
+                        </div>
+                        <div class="slds-col">
+                          <template if:true={eachTask.IsClosed}>
+                            <span style="color: green;font-weight: bold;">DONE</span>
+                          </template>
+                          <template if:false={eachTask.IsClosed}>
+                            <lightning-button-menu alternative-text="Show menu" variant="border-filled" icon-name="utility:automate" class="slds-m-left_large" menu-alignment="right" key={eachTask.Id} name={eachTask.Id}>
+                              <lightning-menu-item name={eachTask.Id} value={eachTask.Id} label="Completed" onclick={updateTaskFunction}></lightning-menu-item>
+                              <lightning-menu-item name={eachTask.Id} value={eachTask.Id} label="In Progress" onclick={updateTaskFunction}></lightning-menu-item>
+                              <lightning-menu-item name={eachTask.Id} value={eachTask.Id} label="Waiting on someone else" onclick={updateTaskFunction}></lightning-menu-item>
+                              <lightning-menu-item name={eachTask.Id} value={eachTask.Id} label="Deferred" onclick={updateTaskFunction}></lightning-menu-item>
+                          </lightning-button-menu>
+                            <!-- <lightning-button class="slds-m-left_x-small" variant="success" name={eachTask.id} value={eachTask.id} label="Complete"></lightning-button> -->
+                          </template>
+                        </div>
+                      </div>
+                    </div>
+                    <p class="slds-p-horizontal_small">
+                      <span style="color: rgb(32, 29, 194);">Status:</span>{eachTask.Status} 
+                    </p>
+                    <p class="slds-p-horizontal_small">
+                      <span style="color: rgb(32, 29, 194);">Priority:</span>{eachTask.Priority} 
+                    </p>
+                    <template if:true={eachTask.Description}>
+                      <p class="slds-p-horizontal_small">
+                        <span style="color: rgb(32, 29, 194);">Description:</span>{eachTask.Description} 
+                      </p>
+                    </template>
+                  </lightning-card>
+                </div>
+              </template>
+          </div>
+        </template>
+      </template>
+    </div>
+</template>
