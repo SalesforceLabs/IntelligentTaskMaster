@@ -12,10 +12,20 @@
     <!-- <div class="slds-m-around_medium"> -->
         <lightning-modal-footer class="--slds-c-modal-footer-color-background: LightGray;">
         <lightning-button
-            label="New List"
-            title="New List"
+            label="New Task"
+            title="New Task"
             onclick={handleButtonClick}
             icon-name="utility:add"
+            variant="Brand Outline"
+            style="display: grid; width: 100%;">
+        </lightning-button>
+    </lightning-modal-footer>
+    <lightning-modal-footer class="--slds-c-modal-footer-color-background: LightGray;">
+        <lightning-button
+            label="Get Task Insights(Gen AI)"
+            title="Get Task Insights(Gen AI)"
+            onclick={handleButtonClick}
+            icon-name="utility:sparkles"
             variant="Brand Outline"
             style="display: grid; width: 100%;">
         </lightning-button>

@@ -49,6 +49,17 @@ export default class TodayTaskLists extends LightningElement {
             this.errorDetails=error;
         });
     }
+    scheduledTaskNameChange(event){
+        this.searchTask=event.target.value;
+        console.log('this.searchTask'+this.searchTask);
+        fetchFlaggedTasks({searchTask:this.searchTask})
+        .then(result => {
+            this.flaggedTodaysTasks=result;
+        })
+        .catch(error => {
+            this.errorDetails=error;
+        });
+    }
 
     updateTaskFunction(event){
         this.taskID=event.target.name;
