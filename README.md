@@ -1,6 +1,6 @@
 # Labs Hackathon - IntelligentTaskMaster - A Productivity Tracker cum Teacher
 
-[Appexchange link]([http://example.com](https://appexchange.salesforce.com/appxListingDetail?listingId=5aeabf3e-f289-4bb9-9275-92783a27686f&tab=d))
+[Appexchange link](https://appexchange.salesforce.com/appxListingDetail?listingId=5aeabf3e-f289-4bb9-9275-92783a27686f&tab=d)
 
 # Overview
 
